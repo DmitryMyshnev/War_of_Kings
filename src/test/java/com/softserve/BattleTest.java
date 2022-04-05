@@ -1,4 +1,4 @@
-package com.softserve.action;
+package com.softserve;
 
 import com.softserve.Battle;
 import com.softserve.Knight;
