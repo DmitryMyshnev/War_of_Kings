@@ -2,6 +2,8 @@ package com.softserve;
 
 import lombok.Getter;
 
+import java.lang.reflect.Constructor;
+
 @Getter
 public class Warrior {
     private int health;
@@ -28,4 +30,15 @@ public class Warrior {
             isAlive = false;
         }
     }
+    public static Warrior typeOf(Class<? extends Warrior> type){
+        Warrior warrior = null;
+        try {
+            Constructor<? extends Warrior> constructor =  type.getDeclaredConstructor();
+            warrior = constructor.newInstance();
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+        }
+        return warrior;
+    }
+
 }
