@@ -1,8 +1,5 @@
 package com.softserve;
 
-import com.softserve.Battle;
-import com.softserve.Knight;
-import com.softserve.Warrior;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
