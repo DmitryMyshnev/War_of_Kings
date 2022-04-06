@@ -5,13 +5,13 @@ import lombok.Getter;
 import java.lang.reflect.Constructor;
 
 @Getter
-public class Warrior {
+public class Warrior implements Fights {
     private int health;
     private final int attack;
     private boolean isAlive;
 
     public Warrior() {
-       this(50,5);
+        this(50, 5);
     }
 
     protected Warrior(int health, int attack) {
@@ -20,20 +20,18 @@ public class Warrior {
         isAlive = true;
     }
 
-    public boolean isAlive() {
-        return isAlive;
-    }
-
-    protected void getPunch(int attack) {
+    @Override
+    public void getPunch(int attack) {
         health -= attack;
         if (health <= 0) {
             isAlive = false;
         }
     }
-    public static Warrior typeOf(Class<? extends Warrior> type){
+
+    public static Warrior typeOf(Class<? extends Warrior> type) {
         Warrior warrior = null;
         try {
-            Constructor<? extends Warrior> constructor =  type.getDeclaredConstructor();
+            Constructor<? extends Warrior> constructor = type.getDeclaredConstructor();
             warrior = constructor.newInstance();
         } catch (ReflectiveOperationException e) {
             e.printStackTrace();
