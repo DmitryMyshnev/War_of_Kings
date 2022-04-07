@@ -3,6 +3,11 @@ package com.softserve;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 class BattleArmyTest {
     Army firstArmy;
@@ -14,45 +19,42 @@ class BattleArmyTest {
         secondArmy = new Army();
     }
 
-    @Test
-    void fightOne() {
-        firstArmy.addUtil(Warrior.class, 1);
-        secondArmy.addUtil(Warrior.class, 2);
-        Assertions.assertFalse(Battle.fight(firstArmy, secondArmy));
+    @ParameterizedTest
+    @MethodSource("countArmyArguments")
+    void battleOne(int countFirstArmy, int countSecondArmy, boolean result) {
+        firstArmy.addUnits(Warrior.class, countFirstArmy);
+        secondArmy.addUnits(Warrior.class, countSecondArmy);
+        Assertions.assertEquals(Battle.fight(firstArmy, secondArmy), result);
     }
 
-    @Test
-    void fightTwo() {
-        firstArmy.addUtil(Warrior.class, 2);
-        secondArmy.addUtil(Warrior.class, 3);
-        Assertions.assertFalse(Battle.fight(firstArmy, secondArmy));
+    private static Stream<Arguments> countArmyArguments() {
+        return Stream.of(
+                Arguments.of(1, 2, false),
+                Arguments.of(2, 3, false),
+                Arguments.of(5, 7, false),
+                Arguments.of(20, 21, true),
+                Arguments.of(10, 11, true),
+                Arguments.of(11, 7, true)
+        );
     }
 
-    @Test
-    void fightThree() {
-        firstArmy.addUtil(Warrior.class, 5);
-        secondArmy.addUtil(Warrior.class, 7);
-        Assertions.assertFalse(Battle.fight(firstArmy, secondArmy));
+    @ParameterizedTest
+    @MethodSource("countArmyAndTypeOfWarriorArguments")
+     void battleTwo(int[] countFirstArmy, int[] countSecondArmy, boolean result, Class<? extends Warrior>[]  warrior) {
+        firstArmy.addUnits(warrior[0], countFirstArmy[0]);
+        firstArmy.addUnits(warrior[1], countFirstArmy[1]);
+        firstArmy.addUnits(warrior[2], countFirstArmy[2]);
+        secondArmy.addUnits(warrior[1], countSecondArmy[0]);
+
+        Assertions.assertEquals(Battle.fight(firstArmy, secondArmy), result);
     }
 
-    @Test
-    void fightFour() {
-        firstArmy.addUtil(Warrior.class, 20);
-        secondArmy.addUtil(Warrior.class, 21);
-        Assertions.assertTrue(Battle.fight(firstArmy, secondArmy));
-    }
-
-    @Test
-    void fightFive() {
-        firstArmy.addUtil(Warrior.class, 10);
-        secondArmy.addUtil(Warrior.class, 11);
-        Assertions.assertTrue(Battle.fight(firstArmy, secondArmy));
-    }
-
-    @Test
-    void fightSix() {
-        firstArmy.addUtil(Warrior.class, 11);
-        secondArmy.addUtil(Warrior.class, 7);
-        Assertions.assertTrue(Battle.fight(firstArmy, secondArmy));
+    private static Stream<Arguments> countArmyAndTypeOfWarriorArguments() {
+        return Stream.of(
+                Arguments.of(new int[]{5,4,5}, new int[]{4}, true, new Class[]{ Warrior.class,Defender.class,Defender.class,Warrior.class}),
+                Arguments.of(new int[]{5,20,4}, new int[]{21}, true, new Class[]{ Defender.class,Warrior.class,Defender.class,Defender.class}),
+                Arguments.of(new int[]{10,5,10}, new int[]{5}, true, new Class[]{ Warrior.class,Defender.class,Defender.class,Warrior.class}),
+                Arguments.of(new int[]{2,1,1}, new int[]{5}, false, new Class[]{ Defender.class,Warrior.class,Defender.class,Warrior.class})
+        );
     }
 }

@@ -21,7 +21,7 @@ public class Warrior implements Fights {
     }
 
     @Override
-    public void getPunch(int attack) {
+    public void hit(int attack) {
         health -= attack;
         if (health <= 0) {
             isAlive = false;

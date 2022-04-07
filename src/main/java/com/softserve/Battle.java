@@ -13,11 +13,11 @@ public class Battle {
             return true;
         }
         while (firstWarrior.isAlive() && secondWarrior.isAlive()) {
-            secondWarrior.getPunch(firstWarrior.getAttack());
+            secondWarrior.hit(firstWarrior.getAttack());
             if (!secondWarrior.isAlive()) {
                 break;
             } else {
-                firstWarrior.getPunch(secondWarrior.getAttack());
+                firstWarrior.hit(secondWarrior.getAttack());
             }
         }
 
@@ -26,29 +26,22 @@ public class Battle {
 
 
     public static boolean fight(Army firstArmy, Army secondArmy) {
-        if (!firstArmy.hasNext()) {
-            return false;
-        }
-        if (!secondArmy.hasNext()) {
-            return true;
-        }
-        Warrior warriorOne = firstArmy.nextWarrior();
-        Warrior warriorTwo = secondArmy.nextWarrior();
-        do {
-            if (fight(warriorOne, warriorTwo)) {
-                secondArmy.getPunch();
-                if (secondArmy.hasNext())
-                    warriorTwo = secondArmy.nextWarrior();
+        Warrior warriorOne = firstArmy.getAliveWarrior();
+        Warrior warriorTwo = secondArmy.getAliveWarrior();
 
+        while (warriorOne != null && warriorTwo != null) {
+            if (fight(warriorOne, warriorTwo)) {
+                if (secondArmy.isStrike()) {
+                    return true;
+                } else {
+                    warriorTwo = secondArmy.getAliveWarrior();
+                }
             } else {
-                firstArmy.getPunch();
-                if (firstArmy.hasNext())
-                    warriorOne = firstArmy.nextWarrior();
+                if (!firstArmy.isStrike())
+                    warriorOne = firstArmy.getAliveWarrior();
             }
         }
-        while (firstArmy.hasNext() && secondArmy.hasNext());
-
-        return firstArmy.hasNext();
+        return warriorOne != null;
     }
 
 }

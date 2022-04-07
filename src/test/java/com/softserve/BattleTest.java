@@ -8,11 +8,15 @@ import org.junit.jupiter.api.Test;
 class BattleTest {
     Warrior warrior;
     Knight knight;
+    Defender defender;
+    Rookie rookie;
 
     @BeforeEach
     public void init() {
         warrior = new Warrior();
         knight = new Knight();
+        defender = new Defender();
+        rookie = new Rookie();
     }
 
     @Test
@@ -76,4 +80,27 @@ class BattleTest {
         Battle.fight(unit_1, unit_2);
         Assertions.assertFalse(Battle.fight(unit_2, unit_3));
     }
+    @Test
+    @DisplayName("Defender vs Rookie")
+    void fightEight(){
+        var unit_1 = defender;
+        var unit_2 = rookie;
+        Battle.fight(unit_1, unit_2);
+        Assertions.assertEquals(60, unit_1.getHealth());
+    }
+    @Test
+    @DisplayName("Defender vs Rookie and Defender vs Warrior")
+    void fightThen() {
+        var unit_1 = defender;
+        var unit_2 = rookie;
+        var unit_3 = new Warrior();
+        Battle.fight(unit_1, unit_2);
+        Assertions.assertTrue(Battle.fight(unit_1, unit_3));
+    }
+
+    static class Rookie extends Warrior {
+      public Rookie() {
+          super(50, 1);
+      }
+  }
 }
