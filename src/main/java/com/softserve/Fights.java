@@ -2,7 +2,7 @@ package com.softserve;
 
 public interface Fights {
 
-    void hit(int attack);
+    void takeDamage(Attack attack);
 
-    int getAttack();
+    void makeDamage(Warrior warrior,Attack attack);
 }

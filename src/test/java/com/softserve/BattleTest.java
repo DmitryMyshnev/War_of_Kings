@@ -10,12 +10,14 @@ class BattleTest {
     Knight knight;
     Defender defender;
     Rookie rookie;
+    Vampire vampire;
 
     @BeforeEach
     public void init() {
         warrior = new Warrior();
         knight = new Knight();
         defender = new Defender();
+        vampire = new Vampire();
         rookie = new Rookie();
     }
 
@@ -25,6 +27,8 @@ class BattleTest {
         var carl = warrior;
         var jim = knight;
         Assertions.assertFalse(Battle.fight(carl, jim));
+
+
     }
 
     @Test
@@ -80,14 +84,16 @@ class BattleTest {
         Battle.fight(unit_1, unit_2);
         Assertions.assertFalse(Battle.fight(unit_2, unit_3));
     }
+
     @Test
     @DisplayName("Defender vs Rookie")
-    void fightEight(){
+    void fightEight() {
         var unit_1 = defender;
         var unit_2 = rookie;
         Battle.fight(unit_1, unit_2);
         Assertions.assertEquals(60, unit_1.getHealth());
     }
+
     @Test
     @DisplayName("Defender vs Rookie and Defender vs Warrior")
     void fightThen() {
@@ -99,8 +105,8 @@ class BattleTest {
     }
 
     static class Rookie extends Warrior {
-      public Rookie() {
-          super(50, 1);
-      }
-  }
+        public Rookie() {
+            super(50, new Attack(1));
+        }
+    }
 }

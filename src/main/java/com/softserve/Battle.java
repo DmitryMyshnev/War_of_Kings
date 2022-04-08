@@ -13,11 +13,11 @@ public class Battle {
             return true;
         }
         while (firstWarrior.isAlive() && secondWarrior.isAlive()) {
-            secondWarrior.hit(firstWarrior.getAttack());
+            firstWarrior.makeDamage(secondWarrior,firstWarrior.getAttack());
             if (!secondWarrior.isAlive()) {
                 break;
             } else {
-                firstWarrior.hit(secondWarrior.getAttack());
+                secondWarrior.makeDamage(firstWarrior,secondWarrior.getAttack());
             }
         }
 

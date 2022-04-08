@@ -2,7 +2,6 @@ package com.softserve;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -50,7 +49,9 @@ class BattleArmyTest {
     }
 
     private static Stream<Arguments> countArmyAndTypeOfWarriorArguments() {
+
         return Stream.of(
+                Arguments.of(),
                 Arguments.of(new int[]{5,4,5}, new int[]{4}, true, new Class[]{ Warrior.class,Defender.class,Defender.class,Warrior.class}),
                 Arguments.of(new int[]{5,20,4}, new int[]{21}, true, new Class[]{ Defender.class,Warrior.class,Defender.class,Defender.class}),
                 Arguments.of(new int[]{10,5,10}, new int[]{5}, true, new Class[]{ Warrior.class,Defender.class,Defender.class,Warrior.class}),

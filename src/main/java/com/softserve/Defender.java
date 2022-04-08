@@ -7,13 +7,14 @@ public class Defender extends Warrior {
     private final int protection;
 
     public Defender() {
-        super(60, 3);
+        super(60, new Attack(3));
         protection = 2;
     }
 
     @Override
-    public void hit(int attack) {
-      int damage = attack > protection? attack - protection : 0;
-      super.hit(damage);
+    public void takeDamage(Attack attack) {
+      int damage = attack.getSimpleAttack() > protection? attack.getSimpleAttack() - protection : 0;
+      super.takeDamage(new Attack(damage));
     }
+
 }
