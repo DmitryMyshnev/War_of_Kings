@@ -13,15 +13,15 @@ public class Vampire extends Warrior {
 
     @Override
     public void makeDamage(Warrior warrior, Attack attack) {
-        int healthBeforAttack = warrior.getHealth();
+        int healthBeforeAttack = warrior.getHealth();
         warrior.takeDamage(attack);
         int currentHealth = warrior.getHealth();
-        int dammage = ((healthBeforAttack - currentHealth) * vampirism) / 100;
-        if (this.getHealth() + dammage > this.getMaxHealth()) {
-            dammage = this.getMaxHealth() - this.getHealth();
+        int damage = ((healthBeforeAttack - currentHealth) * vampirism) / 100;
+        if (this.getHealth() + damage > this.getMaxHealth()) {
+            damage = this.getMaxHealth() - this.getHealth();
         } else {
-            dammage *= -1;
+            damage *= -1;
         }
-        super.makeDamage(this, new Attack(dammage));
+        super.makeDamage(this, new Attack(damage));
     }
 }
