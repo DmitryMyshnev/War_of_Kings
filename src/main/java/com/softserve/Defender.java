@@ -4,17 +4,22 @@ import lombok.Getter;
 
 @Getter
 public class Defender extends Warrior {
-    private final int protection;
+    private int protection;
 
     public Defender() {
         super(60, new Attack(3));
-        protection = 2;
+       setProtection(2);
+       setType(WarriorType.DEFENDER);
+    }
+
+    protected void setProtection(int protection) {
+        this.protection = protection;
     }
 
     @Override
-    public void takeDamage(Attack attack) {
-      int damage = attack.getSimpleAttack() > protection? attack.getSimpleAttack() - protection : 0;
-      super.takeDamage(new Attack(damage));
+    public int receiveDamage(Attack attack) {
+        int damage = attack.getAttack() > protection ? attack.getAttack() - getProtection() : 0;
+        return super.receiveDamage(new Attack(damage));
     }
 
 }

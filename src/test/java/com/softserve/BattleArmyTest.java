@@ -2,6 +2,7 @@ package com.softserve;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -57,5 +58,15 @@ class BattleArmyTest {
                 Arguments.of(new int[]{10,5,10}, new int[]{5}, true, new Class[]{ Warrior.class,Defender.class,Defender.class,Warrior.class}),
                 Arguments.of(new int[]{2,1,1}, new int[]{5}, false, new Class[]{ Defender.class,Warrior.class,Defender.class,Warrior.class})
         );
+    }
+    @Test
+     void BbattThree(){
+        firstArmy.addUnits(Defender.class,5);
+        firstArmy.addUnits(Vampire.class,6);
+        firstArmy.addUnits(Warrior.class,7);
+        secondArmy.addUnits(Warrior.class,7);
+        secondArmy.addUnits(Defender.class,7);
+        secondArmy.addUnits(Vampire.class,7);
+        Assertions.assertFalse(Battle.fight(firstArmy,secondArmy));
     }
 }

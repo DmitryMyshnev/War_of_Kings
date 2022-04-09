@@ -6,13 +6,16 @@ import java.lang.reflect.Constructor;
 
 @Getter
 public class Warrior implements Fights {
+    private WarriorType type;
     private int health;
-    private  int maxHealth;
+    private int maxHealth;
     private final Attack attack;
     private boolean isAlive;
+    private Warrior previousWarrior;
 
     public Warrior() {
         this(50, new Attack(5));
+        type = WarriorType.WARRIOR;
     }
 
     protected Warrior(int health, Attack attack) {
@@ -22,18 +25,32 @@ public class Warrior implements Fights {
         maxHealth = this.health;
     }
 
-    @Override
-    public void takeDamage(Attack attack) {
-        health -= attack.getSimpleAttack();
+    protected void setType(WarriorType type) {
+        this.type = type;
+    }
 
+    protected void setHealth(int health) {
+        this.health = Math.min(health, maxHealth);
+    }
+
+    protected void setPreviousWarrior(Warrior previousWarrior) {
+        this.previousWarrior = previousWarrior;
+    }
+
+    @Override
+    public int receiveDamage(Attack attack) {
+        int priviousHealth = health;
+        health -= attack.getAttack();
         if (health <= 0) {
             isAlive = false;
+            return priviousHealth;
         }
+        return priviousHealth - health;
     }
 
     @Override
     public void makeDamage(Warrior warrior, Attack attack) {
-        warrior.takeDamage(attack);
+        warrior.receiveDamage(attack);
     }
 
     public static Warrior typeOf(Class<? extends Warrior> type) {

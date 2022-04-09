@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class Attack {
-    private  int simpleAttack;
+    private  int attack;
 
-    public Attack(int simpleAttack) {
-        this.simpleAttack = simpleAttack;
+    public Attack(int attack) {
+        this.attack = attack;
     }
 
 }

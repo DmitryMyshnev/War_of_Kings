@@ -4,24 +4,23 @@ import lombok.Getter;
 
 @Getter
 public class Vampire extends Warrior {
-    private final int vampirism;
+    private int vampirism;
+    private static final int PROCENT = 100;
 
     public Vampire() {
         super(40, new Attack(4));
         vampirism = 50;
+        setType(WarriorType.VAMPIRE);
+    }
+
+    protected void setVampirism(int vampirism) {
+        this.vampirism = vampirism;
     }
 
     @Override
     public void makeDamage(Warrior warrior, Attack attack) {
-        int healthBeforeAttack = warrior.getHealth();
-        warrior.takeDamage(attack);
-        int currentHealth = warrior.getHealth();
-        int damage = ((healthBeforeAttack - currentHealth) * vampirism) / 100;
-        if (this.getHealth() + damage > this.getMaxHealth()) {
-            damage = this.getMaxHealth() - this.getHealth();
-        } else {
-            damage *= -1;
-        }
-        super.makeDamage(this, new Attack(damage));
+        int successAttackLevel = warrior.receiveDamage(attack);
+        int health = this.getHealth() + (successAttackLevel * this.getVampirism()) / PROCENT;
+        this.setHealth(health);
     }
 }
