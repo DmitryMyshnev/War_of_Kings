@@ -69,4 +69,34 @@ class BattleArmyTest {
         secondArmy.addUnits(Vampire.class,7);
         Assertions.assertFalse(Battle.fight(firstArmy,secondArmy));
     }
+    @Test
+    void BbattFor(){
+        firstArmy.addUnits(Defender.class, 2);
+        firstArmy.addUnits(Vampire.class, 3);
+        firstArmy.addUnits(Warrior.class, 4);
+        secondArmy.addUnits(Warrior.class, 4);
+        secondArmy.addUnits(Defender.class, 4);
+        secondArmy.addUnits(Vampire.class, 3);
+        Assertions.assertFalse(Battle.fight(firstArmy,secondArmy));
+    }
+    @Test
+    void BbattFive(){
+        firstArmy.addUnits(Defender.class, 11);
+        firstArmy.addUnits(Vampire.class, 3);
+        firstArmy.addUnits(Warrior.class, 4);
+        secondArmy.addUnits(Warrior.class, 4);
+        secondArmy.addUnits(Defender.class, 4);
+        secondArmy.addUnits(Vampire.class, 13);
+        Assertions.assertTrue(Battle.fight(firstArmy,secondArmy));
+    }
+    @Test
+    void BbattSix(){
+        firstArmy.addUnits(Defender.class, 9);
+        firstArmy.addUnits(Vampire.class, 3);
+        firstArmy.addUnits(Warrior.class, 8);
+        secondArmy.addUnits(Warrior.class, 4);
+        secondArmy.addUnits(Defender.class, 4);
+        secondArmy.addUnits(Vampire.class, 13);
+        Assertions.assertTrue(Battle.fight(firstArmy,secondArmy));
+    }
 }
