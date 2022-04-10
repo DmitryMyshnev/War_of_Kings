@@ -40,7 +40,7 @@ class BattleArmyTest {
 
     @ParameterizedTest
     @MethodSource("countArmyAndTypeOfWarriorArguments")
-     void battleTwo(int[] countFirstArmy, int[] countSecondArmy, boolean result, Class<? extends Warrior>[]  warrior) {
+    void battleTwo(int[] countFirstArmy, int[] countSecondArmy, boolean result, Class<? extends Warrior>[]  warrior) {
         firstArmy.addUnits(warrior[0], countFirstArmy[0]);
         firstArmy.addUnits(warrior[1], countFirstArmy[1]);
         firstArmy.addUnits(warrior[2], countFirstArmy[2]);
@@ -59,7 +59,7 @@ class BattleArmyTest {
         );
     }
     @Test
-     void battleThree(){
+    void battleThree(){
         firstArmy.addUnits(Defender.class,5);
         firstArmy.addUnits(Vampire.class,6);
         firstArmy.addUnits(Warrior.class,7);
@@ -122,7 +122,46 @@ class BattleArmyTest {
         secondArmy.addUnits(Lancer.class, 4);
         Assertions.assertTrue(Battle.fight(firstArmy,secondArmy));
     }
-
-
-
+    @Test
+    void battleTen(){
+        firstArmy.addUnits(Lancer.class, 7);
+        firstArmy.addUnits(Vampire.class, 3);
+        firstArmy.addUnits(Healer.class, 1);
+        firstArmy.addUnits(Warrior.class, 4);
+        firstArmy.addUnits(Healer.class, 1);
+        firstArmy.addUnits(Defender.class, 2);
+        secondArmy.addUnits(Warrior.class, 4);
+        secondArmy.addUnits(Defender.class, 4);
+        secondArmy.addUnits(Healer.class, 1);
+        secondArmy.addUnits(Vampire.class, 6);
+        secondArmy.addUnits(Lancer.class, 4);
+        Assertions.assertTrue(Battle.fight(firstArmy,secondArmy));
+    }
+    @Test
+    void battleEleven(){
+        firstArmy.addUnits(Lancer.class, 1);
+        firstArmy.addUnits(Warrior.class, 3);
+        firstArmy.addUnits(Healer.class, 1);
+        firstArmy.addUnits(Warrior.class, 4);
+        firstArmy.addUnits(Healer.class, 1);
+        firstArmy.addUnits(Knight.class, 2);
+        secondArmy.addUnits(Warrior.class, 4);
+        secondArmy.addUnits(Defender.class, 4);
+        secondArmy.addUnits(Healer.class, 1);
+        secondArmy.addUnits(Vampire.class, 6);
+        secondArmy.addUnits(Lancer.class, 4);
+        Assertions.assertFalse(Battle.fight(firstArmy,secondArmy));
+    }
+    @Test
+    void battleTwelwe(){
+        firstArmy.addUnits(Healer.class,1);
+        secondArmy.addUnits(Healer.class,1);
+        Assertions.assertFalse(Battle.fight(firstArmy,secondArmy));
+    }
+    @Test
+    void battleThirteen(){
+        firstArmy.addUnits(Warrior.class,1);
+        secondArmy.addUnits(Healer.class,1);
+        Assertions.assertTrue(Battle.fight(firstArmy,secondArmy));
+    }
 }
