@@ -55,7 +55,7 @@ public class Warrior implements Fights {
     @Override
     public void makeDamage(Warrior warrior, Attack attack) {
         if (previousWarrior instanceof Healer healer) {
-            healer.heal(warrior);
+            healer.heal(this);
         }
         warrior.receiveDamage(attack);
     }
