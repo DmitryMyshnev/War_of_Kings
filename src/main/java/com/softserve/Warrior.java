@@ -1,8 +1,12 @@
 package com.softserve;
 
+import com.softserve.weapons.WeaponType;
+import com.softserve.weapons.Weapons;
 import lombok.Getter;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 public class Warrior implements Fights {
@@ -12,6 +16,7 @@ public class Warrior implements Fights {
     private final Attack attack;
     private boolean isAlive;
     private Warrior previousWarrior;
+    private Map<WeaponType, Weapons> weapons;
 
     public Warrior() {
         this(50, new Attack(5));
@@ -23,6 +28,7 @@ public class Warrior implements Fights {
         this.attack = attack;
         isAlive = true;
         maxHealth = this.health;
+        weapons = new HashMap<>();
     }
 
 
