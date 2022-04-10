@@ -31,13 +31,13 @@ public class Battle {
 
         while (warriorOne != null && warriorTwo != null) {
             if (fight(warriorOne, warriorTwo)) {
-                if (secondArmy.isStrike()) {
+                if (secondArmy.strike()) {
                     return true;
                 } else {
                     warriorTwo = secondArmy.getAliveWarrior();
                 }
             } else {
-                if (!firstArmy.isStrike())
+                if (!firstArmy.strike())
                     warriorOne = firstArmy.getAliveWarrior();
             }
         }

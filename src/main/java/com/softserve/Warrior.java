@@ -25,6 +25,7 @@ public class Warrior implements Fights {
         maxHealth = this.health;
     }
 
+
     protected void setType(WarriorType type) {
         this.type = type;
     }
@@ -33,6 +34,9 @@ public class Warrior implements Fights {
         this.health = Math.min(health, maxHealth);
     }
 
+    protected void setMaxHealth(int maxHealth){
+        this.maxHealth = maxHealth;
+    }
     protected void setPreviousWarrior(Warrior previousWarrior) {
         this.previousWarrior = previousWarrior;
     }
@@ -52,6 +56,7 @@ public class Warrior implements Fights {
     public void makeDamage(Warrior warrior, Attack attack) {
         warrior.receiveDamage(attack);
     }
+
 
     public static Warrior typeOf(Class<? extends Warrior> type) {
         Warrior warrior = null;

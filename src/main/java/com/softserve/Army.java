@@ -11,21 +11,19 @@ public class Army {
     }
 
     public void addUnits(Class<? extends Warrior> type, int count) {
-        Warrior previous;
+        Warrior previous = null;
         Warrior next;
         for (int i = 0; i < count; i++) {
-            if (warriors.isEmpty()) {
-                warriors.add(Warrior.typeOf(type));
-            } else {
-                previous = warriors.getLast();
-                next = Warrior.typeOf(type);
-                next.setPreviousWarrior(previous);
-                warriors.add(next);
+            next =  Warrior.typeOf(type);
+            if(previous != null){
+                previous.setPreviousWarrior(next);
             }
+            warriors.add(next);
+            previous = next;
         }
     }
 
-    public boolean isStrike() {
+    public boolean strike() {
         if (warriors.isEmpty()) {
             return true;
         }

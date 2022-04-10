@@ -3,11 +3,11 @@ package com.softserve;
 import lombok.Getter;
 
 @Getter
-public class Lanser extends Warrior {
+public class Lancer extends Warrior {
     private int extraDamage;
     private static final int PROCENT = 100;
 
-    public Lanser() {
+    public Lancer() {
         super(50, new Attack(6));
         extraDamage = 50;
         setType(WarriorType.LANSER);
@@ -19,7 +19,9 @@ public class Lanser extends Warrior {
 
     @Override
     public void makeDamage(Warrior warrior, Attack attack) {
-        int successAttackLevel = warrior.receiveDamage(attack);
+        int haelthBeforeAttack = warrior.getHealth();
+        super.makeDamage(warrior,attack);
+        int successAttackLevel = haelthBeforeAttack - warrior.getHealth();
         Warrior previousWarrior = warrior.getPreviousWarrior();
         if (previousWarrior != null) {
             int damege = successAttackLevel * this.getExtraDamage() / PROCENT;

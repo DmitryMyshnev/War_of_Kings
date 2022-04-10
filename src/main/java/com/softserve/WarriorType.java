@@ -5,5 +5,6 @@ public enum WarriorType {
     KNIGHT,
     DEFENDER,
     VAMPIRE,
-    LANSER
+    LANSER,
+    HEALERS
 }

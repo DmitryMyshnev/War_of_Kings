@@ -19,7 +19,9 @@ public class Vampire extends Warrior {
 
     @Override
     public void makeDamage(Warrior warrior, Attack attack) {
-        int successAttackLevel = warrior.receiveDamage(attack);
+        int haelthBeforeAttack = warrior.getHealth();
+        super.makeDamage(warrior,attack);
+        int successAttackLevel = haelthBeforeAttack - warrior.getHealth();
         int health = this.getHealth() + (successAttackLevel * this.getVampirism()) / PROCENT;
         this.setHealth(health);
     }
