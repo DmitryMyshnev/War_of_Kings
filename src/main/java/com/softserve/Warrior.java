@@ -53,8 +53,8 @@ public class Warrior implements Fights {
     }
 
     @Override
-    public void makeDamage(Warrior warrior, Attack attack) {
-        warrior.receiveDamage(attack);
+    public void makeDamage(Warrior opponent, Attack attack) {
+        opponent.receiveDamage(attack);
     }
 
 

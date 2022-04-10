@@ -18,11 +18,11 @@ public class Lancer extends Warrior {
     }
 
     @Override
-    public void makeDamage(Warrior warrior, Attack attack) {
-        int haelthBeforeAttack = warrior.getHealth();
-        super.makeDamage(warrior,attack);
-        int successAttackLevel = haelthBeforeAttack - warrior.getHealth();
-        Warrior previousWarrior = warrior.getPreviousWarrior();
+    public void makeDamage(Warrior opponent, Attack attack) {
+        int haelthBeforeAttack = opponent.getHealth();
+        super.makeDamage(opponent,attack);
+        int successAttackLevel = haelthBeforeAttack - opponent.getHealth();
+        Warrior previousWarrior = opponent.getPreviousWarrior();
         if (previousWarrior != null) {
             int damege = successAttackLevel * this.getExtraDamage() / PROCENT;
             previousWarrior.receiveDamage(new Attack(damege));
