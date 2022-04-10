@@ -4,7 +4,7 @@ public interface Fights {
 
     int receiveDamage(Attack attack);
 
-    void makeDamage(Warrior warrior,Attack attack);
+    void makeDamage(Warrior opponent,Attack attack);
 
 
 }

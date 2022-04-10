@@ -40,9 +40,10 @@ public class Warrior implements Fights {
         this.health = Math.min(health, maxHealth);
     }
 
-    protected void setMaxHealth(int maxHealth){
+    protected void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
     }
+
     protected void setPreviousWarrior(Warrior previousWarrior) {
         this.previousWarrior = previousWarrior;
     }
@@ -59,13 +60,15 @@ public class Warrior implements Fights {
     }
 
     @Override
-    public void makeDamage(Warrior warrior, Attack attack) {
-        if (previousWarrior instanceof Healer healer) {
-            healer.heal(this);
-        }
-        warrior.receiveDamage(attack);
+    public void makeDamage(Warrior opponent, Attack attack) {
+        opponent.receiveDamage(attack);
     }
 
+    public void treatmentByHealer() {
+        if (previousWarrior != null && previousWarrior instanceof Healer healer) {
+            healer.heal(this);
+        }
+    }
 
     public static Warrior typeOf(Class<? extends Warrior> type) {
         Warrior warrior = null;
