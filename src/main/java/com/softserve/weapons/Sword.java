@@ -2,7 +2,7 @@ package com.softserve.weapons;
 
 import java.util.EnumMap;
 
-public class Sword implements Weapons {
+public class Sword implements Weapon {
 
     private final EnumMap<Property, Integer> weaponProperties;
 

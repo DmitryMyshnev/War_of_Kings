@@ -13,11 +13,11 @@ public class Battle {
             return true;
         }
         while (firstWarrior.isAlive() && secondWarrior.isAlive()) {
-            firstWarrior.makeDamage(secondWarrior,firstWarrior.getAttack());
+            firstWarrior.makeDamage(secondWarrior, firstWarrior.getAttack());
             if (!secondWarrior.isAlive()) {
                 break;
             } else {
-                secondWarrior.makeDamage(firstWarrior,secondWarrior.getAttack());
+                secondWarrior.makeDamage(firstWarrior, secondWarrior.getAttack());
             }
         }
 
@@ -37,8 +37,9 @@ public class Battle {
                     warriorTwo = secondArmy.getAliveWarrior();
                 }
             } else {
-                if (!firstArmy.strike())
+                if (!firstArmy.strike()) {
                     warriorOne = firstArmy.getAliveWarrior();
+                }
             }
         }
         return warriorOne != null;

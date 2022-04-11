@@ -10,7 +10,6 @@ public class Vampire extends Warrior {
     public Vampire() {
         super(40, new Attack(4));
         vampirism = 50;
-        setType(WarriorType.VAMPIRE);
     }
 
     protected void setVampirism(int vampirism) {
@@ -20,9 +19,10 @@ public class Vampire extends Warrior {
     @Override
     public void makeDamage(Warrior opponent, Attack attack) {
         int haelthBeforeAttack = opponent.getHealth();
-        super.makeDamage(opponent,attack);
+        opponent.receiveDamage(attack);
         int successAttackLevel = haelthBeforeAttack - opponent.getHealth();
-        int health = this.getHealth() + (successAttackLevel * this.getVampirism()) / PROCENT;
-        this.setHealth(health);
+        int health = getHealth() + (successAttackLevel * getVampirism()) / PROCENT;
+        setHealth(health);
+        treatmentByHealer();
     }
 }

@@ -2,7 +2,7 @@ package com.softserve.weapons;
 
 import java.util.EnumMap;
 
-public interface Weapons {
+public interface Weapon {
 
    EnumMap<Property,Integer> getWeaponProperties();
 

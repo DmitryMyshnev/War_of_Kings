@@ -1,5 +1,6 @@
 package com.softserve;
 
+import com.softserve.weapons.Sword;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,6 @@ class BattleArmyTest {
     }
 
     private static Stream<Arguments> countArmyAndTypeOfWarriorArguments() {
-
         return Stream.of(
                 Arguments.of(new int[]{5,4,5}, new int[]{4}, true, new Class[]{ Warrior.class,Defender.class,Defender.class,Warrior.class}),
                 Arguments.of(new int[]{5,20,4}, new int[]{21}, true, new Class[]{ Defender.class,Warrior.class,Defender.class,Defender.class}),
@@ -163,5 +163,12 @@ class BattleArmyTest {
         firstArmy.addUnits(Warrior.class,1);
         secondArmy.addUnits(Healer.class,1);
         Assertions.assertTrue(Battle.fight(firstArmy,secondArmy));
+    }
+    @Test
+    void battle(){
+        firstArmy.addUnits(Warrior.class,1);
+        Warrior warrior = firstArmy.getAliveWarrior();
+        warrior.equipWeapon(new Sword());
+
     }
 }

@@ -5,7 +5,6 @@ import lombok.Getter;
 @Getter
 public class Healer extends Warrior {
     private int treatment;
-    private WarriorType type;
 
     public Healer() {
         super(50, new Attack(0));
@@ -17,8 +16,8 @@ public class Healer extends Warrior {
     }
 
     @Override
-    public void makeDamage(Warrior warrior, Attack attack) {
-        super.makeDamage(warrior, attack);
+    public void makeDamage(Warrior opponent, Attack attack) {
+        opponent.receiveDamage(attack);
         receiveDamage(new Attack(this.getMaxHealth()));
     }
 }

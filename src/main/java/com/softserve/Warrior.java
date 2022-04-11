@@ -1,44 +1,40 @@
 package com.softserve;
 
-import com.softserve.weapons.WeaponType;
-import com.softserve.weapons.Weapons;
+import com.softserve.weapons.Weapon;
 import lombok.Getter;
 
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.Map;
 
 @Getter
-public class Warrior implements Fights {
-    private WarriorType type;
+public class Warrior implements Fighter {
     private int health;
     private int maxHealth;
     private final Attack attack;
-    private boolean isAlive;
     private Warrior previousWarrior;
-    private Map<WeaponType, Weapons> weapons;
+    private Weapon weapon;
 
     public Warrior() {
         this(50, new Attack(5));
-        type = WarriorType.WARRIOR;
     }
 
     protected Warrior(int health, Attack attack) {
         this.health = health;
         this.attack = attack;
-        isAlive = true;
         maxHealth = this.health;
-        weapons = new HashMap<>();
     }
 
+    protected void increaceAttack(int additive) {
+        attack.setAttack(attack.getAttack() + additive);
+    }
 
-    protected void setType(WarriorType type) {
-        this.type = type;
+    protected void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
     }
 
     protected void setHealth(int health) {
         this.health = Math.min(health, maxHealth);
     }
+
 
     protected void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
@@ -49,14 +45,13 @@ public class Warrior implements Fights {
     }
 
     @Override
-    public int receiveDamage(Attack attack) {
-        int priviousHealth = health;
+    public void receiveDamage(Attack attack) {
         health -= attack.getAttack();
-        if (health <= 0) {
-            isAlive = false;
-            return priviousHealth;
-        }
-        return priviousHealth - health;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return getHealth() >= 0;
     }
 
     @Override
@@ -70,13 +65,28 @@ public class Warrior implements Fights {
         }
     }
 
+    protected void increaseMaxHealth(int additive) {
+        setMaxHealth(getMaxHealth() + additive);
+    }
+
+    public void equipWeapon(Weapon weapon) {
+        this.setWeapon(weapon);
+        if (weapon != null) {
+            Integer healthValue = weapon.getWeaponProperties().getOrDefault(Weapon.Property.HEALTH, 0);
+            increaseMaxHealth(healthValue);
+            setHealth(getHealth() + healthValue);
+            Integer attackValue = weapon.getWeaponProperties().getOrDefault(Weapon.Property.ATTACK, 0);
+            increaceAttack(attackValue);
+        }
+    }
+
     public static Warrior typeOf(Class<? extends Warrior> type) {
         Warrior warrior = null;
         try {
             Constructor<? extends Warrior> constructor = type.getDeclaredConstructor();
             warrior = constructor.newInstance();
         } catch (ReflectiveOperationException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Can not create warrior", e);
         }
         return warrior;
     }

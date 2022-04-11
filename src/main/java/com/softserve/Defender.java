@@ -8,8 +8,7 @@ public class Defender extends Warrior {
 
     public Defender() {
         super(60, new Attack(3));
-       setProtection(2);
-       setType(WarriorType.DEFENDER);
+        setProtection(2);
     }
 
     protected void setProtection(int protection) {
@@ -17,9 +16,9 @@ public class Defender extends Warrior {
     }
 
     @Override
-    public int receiveDamage(Attack attack) {
+    public void receiveDamage(Attack attack) {
         int damage = attack.getAttack() > protection ? attack.getAttack() - getProtection() : 0;
-        return super.receiveDamage(new Attack(damage));
+         super.receiveDamage(new Attack(damage));
     }
 
 }

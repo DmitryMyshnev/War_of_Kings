@@ -14,8 +14,8 @@ public class Army {
         Warrior previous = null;
         Warrior next;
         for (int i = 0; i < count; i++) {
-            next =  Warrior.typeOf(type);
-            if(previous != null){
+            next = Warrior.typeOf(type);
+            if (previous != null) {
                 previous.setPreviousWarrior(next);
             }
             warriors.add(next);
