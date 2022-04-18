@@ -1,4 +1,4 @@
-package com.softserve.weapons;
+package com.softserve.weapon;
 
 import java.util.EnumMap;
 
@@ -11,6 +11,7 @@ public interface Weapon {
         ATTACK,
         DEFENSE,
         VAMPIRISM,
-        HEAL_POWER
+        HEAL_POWER,
+        PIERCING_DAMAGE
     }
 }

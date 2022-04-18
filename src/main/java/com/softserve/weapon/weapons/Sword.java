@@ -1,4 +1,6 @@
-package com.softserve.weapons;
+package com.softserve.weapon.weapons;
+
+import com.softserve.weapon.Weapon;
 
 import java.util.EnumMap;
 

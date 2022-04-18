@@ -1,6 +1,6 @@
 package com.softserve;
 
-import com.softserve.weapons.Weapon;
+import com.softserve.weapon.Weapon;
 import lombok.Getter;
 
 import java.lang.reflect.Constructor;
@@ -27,14 +27,13 @@ public class Warrior implements Fighter {
         attack.setAttack(attack.getAttack() + additive);
     }
 
-    protected void setWeapon(Weapon weapon) {
+    private void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
 
     protected void setHealth(int health) {
-        this.health = Math.min(health, maxHealth);
+        this.health = health < 0 ? 0 : Math.min(health, maxHealth);
     }
-
 
     protected void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
@@ -45,21 +44,20 @@ public class Warrior implements Fighter {
     }
 
     @Override
+    public boolean isAlive() {
+        return getHealth() > 0;
+    }
+
+
+    @Override
     public void receiveDamage(Attack attack) {
         health -= attack.getAttack();
     }
 
-    @Override
-    public boolean isAlive() {
-        return getHealth() >= 0;
-    }
 
     @Override
     public void makeDamage(Warrior opponent, Attack attack) {
         opponent.receiveDamage(attack);
-    }
-
-    public void treatmentByHealer() {
         if (previousWarrior != null && previousWarrior instanceof Healer healer) {
             healer.heal(this);
         }
@@ -70,12 +68,12 @@ public class Warrior implements Fighter {
     }
 
     public void equipWeapon(Weapon weapon) {
-        this.setWeapon(weapon);
+        setWeapon(weapon);
         if (weapon != null) {
-            Integer healthValue = weapon.getWeaponProperties().getOrDefault(Weapon.Property.HEALTH, 0);
+            int healthValue = weapon.getWeaponProperties().getOrDefault(Weapon.Property.HEALTH, 0);
             increaseMaxHealth(healthValue);
             setHealth(getHealth() + healthValue);
-            Integer attackValue = weapon.getWeaponProperties().getOrDefault(Weapon.Property.ATTACK, 0);
+            int attackValue = weapon.getWeaponProperties().getOrDefault(Weapon.Property.ATTACK, 0);
             increaceAttack(attackValue);
         }
     }

@@ -1,6 +1,5 @@
 package com.softserve;
 
-import com.softserve.weapons.Sword;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -166,9 +165,6 @@ class BattleArmyTest {
     }
     @Test
     void battle(){
-        firstArmy.addUnits(Warrior.class,1);
-        Warrior warrior = firstArmy.getAliveWarrior();
-        warrior.equipWeapon(new Sword());
 
     }
 }
