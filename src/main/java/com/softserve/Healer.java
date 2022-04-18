@@ -22,7 +22,6 @@ public class Healer extends Warrior {
 
     @Override
     public void makeDamage(Warrior opponent, Attack attack) {
-       // opponent.receiveDamage(attack);
         super.makeDamage(opponent,attack);
         receiveDamage(new Attack(this.getMaxHealth()));
     }

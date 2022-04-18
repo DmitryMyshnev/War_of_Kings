@@ -20,7 +20,6 @@ public class Lancer extends Warrior {
     @Override
     public void makeDamage(Warrior opponent, Attack attack) {
         int haelthBeforeAttack = opponent.getHealth();
-        // opponent.receiveDamage(attack);
         super.makeDamage(opponent, attack);
         int successAttackLevel = haelthBeforeAttack - opponent.getHealth();
         Warrior previousWarrior = opponent.getPreviousWarrior();
@@ -28,7 +27,6 @@ public class Lancer extends Warrior {
             int damage = successAttackLevel * getPiercingDamage() / PROCENT;
             previousWarrior.receiveDamage(new Attack(damage));
         }
-        //  treatmentByHealer();
     }
 
     @Override
