@@ -17,13 +17,13 @@ public class Healer extends Warrior {
     }
 
     public void heal(Warrior warrior) {
-        warrior.setHealth(warrior.getHealth() + this.getTreatment());
+        warrior.setHealth(warrior.getHealth() + getTreatment());
     }
 
     @Override
     public void makeDamage(Warrior opponent, Attack attack) {
         super.makeDamage(opponent,attack);
-        receiveDamage(new Attack(this.getMaxHealth()));
+        receiveDamage(new Attack(getMaxHealth()));
     }
 
     @Override

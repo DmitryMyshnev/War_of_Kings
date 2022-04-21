@@ -11,7 +11,9 @@ public class Warrior implements Fighter {
     private int maxHealth;
     private final Attack attack;
     private Warrior previousWarrior;
+    private Warrior nextWarrior;
     private Weapon weapon;
+    public EventManager em;
 
     public Warrior() {
         this(50, new Attack(5));
@@ -21,6 +23,7 @@ public class Warrior implements Fighter {
         this.health = health;
         this.attack = attack;
         maxHealth = this.health;
+        em = EventManager.getInstance();
     }
 
     protected void increaceAttack(int additive) {
@@ -43,6 +46,10 @@ public class Warrior implements Fighter {
         this.previousWarrior = previousWarrior;
     }
 
+    protected void setNextWarrior(Warrior nextWarrior) {
+        this.nextWarrior = nextWarrior;
+    }
+
     @Override
     public boolean isAlive() {
         return getHealth() > 0;
@@ -58,9 +65,8 @@ public class Warrior implements Fighter {
     @Override
     public void makeDamage(Warrior opponent, Attack attack) {
         opponent.receiveDamage(attack);
-        if (previousWarrior != null && previousWarrior instanceof Healer healer) {
-            healer.heal(this);
-        }
+        em.notifyEvent(EventManager.Event.TREATMENT);
+
     }
 
     protected void increaseMaxHealth(int additive) {

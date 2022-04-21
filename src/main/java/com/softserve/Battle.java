@@ -1,5 +1,10 @@
 package com.softserve;
 
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Battle {
 
     private Battle() {
@@ -45,4 +50,19 @@ public class Battle {
         return warriorOne != null;
     }
 
+    public static boolean straightFight(Army firstArmy, Army secondArmy) {
+        firstArmy.lineUp();
+        secondArmy.lineUp();
+        Iterator<Warrior> survivorsOfFirstArmy = firstArmy.allAliveWarrior();
+        Iterator<Warrior> survivorsOfSecondArmy = secondArmy.allAliveWarrior();
+        while (survivorsOfFirstArmy.hasNext() && survivorsOfSecondArmy.hasNext()) {
+            while (survivorsOfFirstArmy.hasNext() && survivorsOfSecondArmy.hasNext()) {
+                fight(survivorsOfFirstArmy.next(), survivorsOfSecondArmy.next());
+            }
+            survivorsOfFirstArmy = firstArmy.allAliveWarrior();
+            survivorsOfSecondArmy = secondArmy.allAliveWarrior();
+        }
+
+        return survivorsOfFirstArmy.hasNext();
+    }
 }
