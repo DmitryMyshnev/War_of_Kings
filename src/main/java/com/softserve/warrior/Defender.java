@@ -1,4 +1,4 @@
-package com.softserve;
+package com.softserve.warrior;
 
 import com.softserve.weapon.Weapon;
 import lombok.Getter;
@@ -8,8 +8,13 @@ public class Defender extends Warrior {
     private int protection;
 
     public Defender() {
-        super(60, new Attack(3));
+        super(60, new Attack(3),30);
         setProtection(2);
+    }
+
+    protected Defender(int health, Attack attack, int protection, int priority) {
+        super(health, attack,priority);
+        this.protection = protection;
     }
 
     protected void setProtection(int protection) {
@@ -23,9 +28,13 @@ public class Defender extends Warrior {
     }
 
     @Override
-    public void equipWeapon(Weapon weapon) {
+    public boolean equipWeapon(Weapon weapon) {
+        if (weapon == null) {
+            return false;
+        }
         super.equipWeapon(weapon);
         int defenseValue = weapon.getWeaponProperties().getOrDefault(Weapon.Property.DEFENSE, 0);
         setProtection(getProtection() + defenseValue);
+        return true;
     }
 }

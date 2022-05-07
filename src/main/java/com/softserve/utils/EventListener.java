@@ -1,4 +1,4 @@
-package com.softserve;
+package com.softserve.utils;
 
 public interface EventListener {
 

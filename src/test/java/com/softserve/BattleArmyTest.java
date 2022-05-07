@@ -1,5 +1,6 @@
 package com.softserve;
 
+import com.softserve.warrior.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,8 +16,8 @@ class BattleArmyTest {
 
     @BeforeEach
     public void init() {
-        firstArmy = new Army();
-        secondArmy = new Army();
+        firstArmy = new ArmyImpl("Lion");
+        secondArmy = new ArmyImpl("Tiger");
     }
 
     @ParameterizedTest
@@ -205,5 +206,36 @@ class BattleArmyTest {
         secondArmy.addUnits(Vampire.class, 2);
         secondArmy.addUnits(Lancer.class, 4);
         Assertions.assertTrue(Battle.straightFight(firstArmy, secondArmy));
+    }
+
+    @Test
+    void battleSixteen() {
+        firstArmy.addUnits(Warlord.class, 1);
+        firstArmy.addUnits(Warrior.class, 2);
+        firstArmy.addUnits(Lancer.class, 2);
+        firstArmy.addUnits(Healer.class, 3);
+
+        secondArmy.addUnits(Warlord.class, 1);
+        secondArmy.addUnits(Vampire.class, 1);
+        secondArmy.addUnits(Healer.class, 2);
+        secondArmy.addUnits(Knight.class, 2);
+        Assertions.assertTrue(Battle.fight(firstArmy, secondArmy));
+    }
+
+    @Test
+    void battleSeventeen() {
+        firstArmy.addUnits(Knight.class, 1);
+        firstArmy.addUnits(Warrior.class, 3);
+        firstArmy.addUnits(Defender.class, 1);
+        firstArmy.addUnits(Healer.class, 1);
+        firstArmy.addUnits(Witcher.class, 1);
+
+        secondArmy.addUnits(Warlord.class, 1);
+        secondArmy.addUnits(Vampire.class, 3);
+        secondArmy.addUnits(Healer.class, 3);
+        secondArmy.addUnits(Defender.class, 3);
+        secondArmy.addUnits(Lancer.class, 3);
+
+        Assertions.assertTrue(Battle.fight(firstArmy, secondArmy));
     }
 }

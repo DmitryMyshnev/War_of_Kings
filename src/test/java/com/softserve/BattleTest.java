@@ -1,5 +1,6 @@
 package com.softserve;
 
+import com.softserve.warrior.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -106,7 +107,7 @@ class BattleTest {
 
     static class Rookie extends Warrior {
         public Rookie() {
-            super(50, new Attack(1));
+            super(50, new Attack(1),1);
         }
     }
 }

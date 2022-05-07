@@ -1,9 +1,8 @@
 package com.softserve;
 
-import java.util.Comparator;
+import com.softserve.warrior.Warrior;
+
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Battle {
 
@@ -31,19 +30,19 @@ public class Battle {
 
 
     public static boolean fight(Army firstArmy, Army secondArmy) {
-        Warrior warriorOne = firstArmy.getAliveWarrior();
-        Warrior warriorTwo = secondArmy.getAliveWarrior();
+        Warrior warriorOne = firstArmy.nextAliveWarrior();
+        Warrior warriorTwo = secondArmy.nextAliveWarrior();
 
         while (warriorOne != null && warriorTwo != null) {
             if (fight(warriorOne, warriorTwo)) {
-                if (secondArmy.strike()) {
+                if (secondArmy.isDied()) {
                     return true;
                 } else {
-                    warriorTwo = secondArmy.getAliveWarrior();
+                    warriorTwo = secondArmy.nextAliveWarrior();
                 }
             } else {
-                if (!firstArmy.strike()) {
-                    warriorOne = firstArmy.getAliveWarrior();
+                if (!firstArmy.isDied()) {
+                    warriorOne = firstArmy.nextAliveWarrior();
                 }
             }
         }
@@ -62,7 +61,6 @@ public class Battle {
             survivorsOfFirstArmy = firstArmy.allAliveWarrior();
             survivorsOfSecondArmy = secondArmy.allAliveWarrior();
         }
-
         return survivorsOfFirstArmy.hasNext();
     }
 }

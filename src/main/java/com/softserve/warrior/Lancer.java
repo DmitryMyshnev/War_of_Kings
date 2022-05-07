@@ -1,4 +1,4 @@
-package com.softserve;
+package com.softserve.warrior;
 
 import com.softserve.weapon.Weapon;
 import lombok.Getter;
@@ -9,7 +9,7 @@ public class Lancer extends Warrior {
     private static final int PROCENT = 100;
 
     public Lancer() {
-        super(50, new Attack(6));
+        super(50, new Attack(6),40);
         piercingDamage = 50;
     }
 
@@ -30,9 +30,13 @@ public class Lancer extends Warrior {
     }
 
     @Override
-    public void equipWeapon(Weapon weapon) {
+    public boolean equipWeapon(Weapon weapon) {
+        if (weapon == null) {
+            return false;
+        }
         super.equipWeapon(weapon);
         int piercingDamageValue = weapon.getWeaponProperties().getOrDefault(Weapon.Property.PIERCING_DAMAGE, 0);
         setPiercingDamage(getPiercingDamage() + piercingDamageValue);
+        return true;
     }
 }
